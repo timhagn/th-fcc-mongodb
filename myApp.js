@@ -69,7 +69,6 @@ const Person = mongoose.model('Person', PersonSchema);
 /** # [C]RUD part I - CREATE #
 /*  ========================== */
 
-
 /** 3) Create and Save a Person */
 
 // Create a `document` instance using the `Person` constructor you build before.
@@ -86,10 +85,17 @@ const Person = mongoose.model('Person', PersonSchema);
 //    ...do your stuff here...
 // });
 
-var createAndSavePerson = function(done) {
-  
-  done(null /*, data*/);
-
+const createAndSavePerson = (done) => {
+  const person = new Person({
+    name: 'Tim',
+    age: 37,
+    favoriteFoods: [
+        'Sauerbraten',
+        'Rouladen',
+        'Meat in general'
+    ]
+  });
+  person.save((err, data) => err ? done(err) : done(null, data));
 };
 
 /** 4) Create many People with `Model.create()` */
