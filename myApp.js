@@ -13,6 +13,8 @@ require('dotenv').config();
 // `mongoose`. Store your **mLab** database URI in the private `.env` file 
 // as `MONGO_URI`. Connect to the database using `mongoose.connect(<Your URI>)`
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
 
 /** # SCHEMAS and MODELS #
@@ -40,7 +42,13 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
 
 // <Your code here >
 
-let Person /* = <Your Model> */
+const PersonSchema = new Schema({
+  name: { type: String, required: true },
+  age: { type: Number },
+  favoriteFoods: [String]
+});
+const Person = mongoose.model('Person', PersonSchema);
+
 
 // **Note**: GoMix is a real server, and in real servers interactions with
 // the db are placed in handler functions, to be called when some event happens
@@ -60,6 +68,7 @@ let Person /* = <Your Model> */
 
 /** # [C]RUD part I - CREATE #
 /*  ========================== */
+
 
 /** 3) Create and Save a Person */
 
