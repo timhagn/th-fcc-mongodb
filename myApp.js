@@ -111,7 +111,7 @@ const createManyPeople = (arrayOfPeople, done) => {
     Person.create(
         arrayOfPeople,
         (err, data) => err ? done(err) : done(null, data)
-        );
+    );
 };
 
 /** # C[R]UD part II - READ #
@@ -125,10 +125,12 @@ const createManyPeople = (arrayOfPeople, done) => {
 // It supports an extremely wide range of search options. Check it in the docs.
 // Use the function argument `personName` as search key.
 
-var findPeopleByName = function(personName, done) {
-  
-  done(null/*, data*/);
-
+const findPeopleByName = function(personName, done) {
+  console.log(personName);
+  Person.find(
+      {name: personName},
+      (err, data) => err ? done(err) : done(null, data)
+  );
 };
 
 /** 6) Use `Model.findOne()` */
