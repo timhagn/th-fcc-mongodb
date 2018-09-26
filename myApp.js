@@ -107,10 +107,11 @@ const createAndSavePerson = (done) => {
 // Create many people using `Model.create()`, using the function argument
 // 'arrayOfPeople'.
 
-var createManyPeople = function(arrayOfPeople, done) {
-    
-    done(null/*, data*/);
-    
+const createManyPeople = (arrayOfPeople, done) => {
+    Person.create(
+        arrayOfPeople,
+        (err, data) => err ? done(err) : done(null, data)
+        );
 };
 
 /** # C[R]UD part II - READ #
