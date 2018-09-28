@@ -1,10 +1,10 @@
 /**********************************************
-* 3. FCC Mongo & Mongoose Challenges
-* ==================================
-***********************************************/
+ * 3. FCC Mongo & Mongoose Challenges
+ * ==================================
+ ***********************************************/
 
 /** # MONGOOSE SETUP #
-/*  ================== */
+ /*  ================== */
 
 /** 1) Install & Set up mongoose */
 require('dotenv').config();
@@ -18,7 +18,7 @@ const Schema = mongoose.Schema;
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
 
 /** # SCHEMAS and MODELS #
-/*  ====================== */
+ /*  ====================== */
 
 /** 2) Create a 'Person' Model */
 
@@ -67,7 +67,7 @@ const Person = mongoose.model('Person', PersonSchema);
 // };
 
 /** # [C]RUD part I - CREATE #
-/*  ========================== */
+ /*  ========================== */
 
 /** 3) Create and Save a Person */
 
@@ -90,9 +90,9 @@ const createAndSavePerson = (done) => {
     name: 'Tim',
     age: 37,
     favoriteFoods: [
-        'Sauerbraten',
-        'Rouladen',
-        'Meat in general'
+      'Sauerbraten',
+      'Rouladen',
+      'Meat in general'
     ]
   });
   person.save((err, data) => err ? done(err) : done(null, data));
@@ -108,14 +108,14 @@ const createAndSavePerson = (done) => {
 // 'arrayOfPeople'.
 
 const createManyPeople = (arrayOfPeople, done) => {
-    Person.create(
-        arrayOfPeople,
-        (err, data) => err ? done(err) : done(null, data)
-    );
+  Person.create(
+      arrayOfPeople,
+      (err, data) => err ? done(err) : done(null, data)
+  );
 };
 
 /** # C[R]UD part II - READ #
-/*  ========================= */
+ /*  ========================= */
 
 /** 5) Use `Model.find()` */
 
@@ -165,8 +165,8 @@ const findPersonById = (personId, done) => {
   );
 };
 
-/** # CR[U]D part III - UPDATE # 
-/*  ============================ */
+/** # CR[U]D part III - UPDATE #
+ /*  ============================ */
 
 /** 8) Classic Update : Find, Edit then Save */
 
@@ -234,7 +234,7 @@ const findAndUpdate = (personName, done) => {
 };
 
 /** # CRU[D] part IV - DELETE #
-/*  =========================== */
+ /*  =========================== */
 
 /** 10) Delete one Person */
 
@@ -269,8 +269,8 @@ const removeManyPeople = (done) => {
   );
 };
 
-/** # C[R]UD part V -  More about Queries # 
-/*  ======================================= */
+/** # C[R]UD part V -  More about Queries #
+ /*  ======================================= */
 
 /** 12) Chain Query helpers */
 
@@ -287,18 +287,22 @@ const removeManyPeople = (done) => {
 // Chain `.find()`, `.sort()`, `.limit()`, `.select()`, and then `.exec()`,
 // passing the `done(err, data)` callback to it.
 
-var queryChain = function(done) {
-  var foodToSearch = "burrito";
+const queryChain = (done) => {
+  const foodToSearch = "burrito";
 
-  done(null/*, data*/);
+  Person.find({favoriteFoods: foodToSearch})
+      .sort({name: 'asc'})
+      .limit(2)
+      .select('-age')
+      .exec((err, data) => err ? done(err) : done(null, data));
 };
 
 /** **Well Done !!**
-/* You completed these challenges, let's go celebrate !
+ /* You completed these challenges, let's go celebrate !
  */
 
 /** # Further Readings... #
-/*  ======================= */
+ /*  ======================= */
 // If you are eager to learn and want to go deeper, You may look at :
 // * Indexes ( very important for query efficiency ),
 // * Pre/Post hooks,
